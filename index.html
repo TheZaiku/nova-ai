@@ -398,6 +398,10 @@ footer p{
             The Doctor
         </button>
 
+        <button class="tool-btn" onclick="openTravelAI()">
+            Travel Route Architect
+        </button>
+
         <button class="close-btn" onclick="closeTools()">
             Close
         </button>
@@ -446,13 +450,23 @@ function openDoctorBot(){
 
 }
 
+function openTravelAI(){
+
+    window.open(
+    "https://chatbot.getmindpal.com/travel-route-architect-so0",
+    "_blank"
+    );
+
+}
+
 </script>
 
 <!-- CHATBASE AI -->
 
 <script>
 (function(){
-if(!window.chatbase||window.chatbase("getState")!=="initialized"){
+
+if(!window.chatbase || window.chatbase("getState") !== "initialized"){
 
 window.chatbase=(...arguments)=>{
 if(!window.chatbase.q){
@@ -468,7 +482,7 @@ return target.q
 }
 return(...args)=>target(prop,...args)
 }
-})
+});
 }
 
 const onLoad=function(){
@@ -481,15 +495,12 @@ script.id="kxemaNl6VFrXMQkBX8iwb";
 
 script.domain="www.chatbase.co";
 
-document.body.appendChild(script)
+document.body.appendChild(script);
 
 };
 
-if(document.readyState==="complete"){
-onLoad()
-}else{
-window.addEventListener("load",onLoad)
-}
+document.addEventListener("DOMContentLoaded", onLoad);
+
 })();
 </script>
 
