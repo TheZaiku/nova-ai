@@ -41,20 +41,6 @@ nav{
     color:#00d4ff;
 }
 
-nav ul{
-    display:flex;
-    list-style:none;
-}
-
-nav ul li{
-    margin-left:20px;
-}
-
-nav ul li a{
-    color:white;
-    text-decoration:none;
-}
-
 /* HERO */
 
 .hero{
@@ -92,105 +78,11 @@ nav ul li a{
     font-size:18px;
     font-weight:bold;
     cursor:pointer;
-    transition:0.3s;
 }
 
-.btn:hover{
-    transform:scale(1.05);
-}
+/* POPUPS */
 
-/* FEATURES */
-
-section{
-    padding:90px 10%;
-}
-
-.title{
-    text-align:center;
-    margin-bottom:50px;
-}
-
-.title h2{
-    font-size:42px;
-}
-
-.cards{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:25px;
-}
-
-.card{
-    background:#111827;
-    padding:35px;
-    border-radius:20px;
-    transition:0.3s;
-}
-
-.card:hover{
-    transform:translateY(-10px);
-}
-
-.card i{
-    font-size:42px;
-    color:#00d4ff;
-    margin-bottom:20px;
-}
-
-.card h3{
-    margin-bottom:15px;
-}
-
-/* CHAT PREVIEW */
-
-.chatbox{
-    max-width:700px;
-    margin:auto;
-    background:#111827;
-    padding:25px;
-    border-radius:20px;
-}
-
-.message{
-    padding:15px;
-    border-radius:12px;
-    margin:10px 0;
-}
-
-.bot{
-    background:#1f2937;
-}
-
-.user{
-    background:#00d4ff;
-    color:black;
-    text-align:right;
-}
-
-.input-box{
-    display:flex;
-    margin-top:20px;
-}
-
-.input-box input{
-    flex:1;
-    padding:15px;
-    border:none;
-    border-radius:10px 0 0 10px;
-    outline:none;
-}
-
-.input-box button{
-    border:none;
-    background:#00d4ff;
-    padding:15px 20px;
-    cursor:pointer;
-    border-radius:0 10px 10px 0;
-}
-
-/* AI TOOLS POPUP */
-
-.tools-popup{
+.popup{
     position:fixed;
     top:0;
     left:0;
@@ -203,15 +95,15 @@ section{
     z-index:9999;
 }
 
-.tools-box{
+.popup-box{
     background:#111827;
-    width:320px;
-    padding:40px;
+    width:350px;
+    padding:35px;
     border-radius:20px;
     text-align:center;
 }
 
-.tools-box h2{
+.popup-box h2{
     margin-bottom:20px;
 }
 
@@ -220,16 +112,11 @@ section{
     padding:15px;
     margin-top:15px;
     border:none;
+    border-radius:10px;
     background:#00d4ff;
     color:black;
     font-size:18px;
-    border-radius:10px;
     cursor:pointer;
-    transition:0.3s;
-}
-
-.tool-btn:hover{
-    transform:scale(1.03);
 }
 
 .close-btn{
@@ -237,10 +124,51 @@ section{
     padding:13px;
     margin-top:15px;
     border:none;
+    border-radius:10px;
     background:#333;
     color:white;
-    border-radius:10px;
     cursor:pointer;
+}
+
+/* IFRAME POPUP */
+
+.iframe-popup{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:black;
+    display:none;
+    z-index:10000;
+}
+
+.iframe-top{
+    height:60px;
+    background:#111827;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 20px;
+}
+
+.iframe-top h2{
+    color:white;
+}
+
+.iframe-top button{
+    background:red;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+iframe{
+    width:100%;
+    height:calc(100% - 60px);
+    border:none;
 }
 
 /* FOOTER */
@@ -249,34 +177,6 @@ footer{
     background:#111827;
     text-align:center;
     padding:40px;
-}
-
-.socials a{
-    color:white;
-    font-size:24px;
-    margin:0 10px;
-}
-
-footer p{
-    margin-top:20px;
-}
-
-/* MOBILE */
-
-@media(max-width:768px){
-
-    .hero h1{
-        font-size:42px;
-    }
-
-    nav{
-        flex-direction:column;
-    }
-
-    nav ul{
-        margin-top:15px;
-    }
-
 }
 
 </style>
@@ -291,13 +191,6 @@ footer p{
         Nova AI
     </div>
 
-    <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Features</a></li>
-        <li><a href="#">Pricing</a></li>
-        <li><a href="#">Contact</a></li>
-    </ul>
-
 </nav>
 
 <!-- HERO -->
@@ -311,8 +204,7 @@ footer p{
         </h1>
 
         <p>
-            Experience futuristic AI conversations with Nova AI.
-            Powerful chatbot tools, instant responses, and intelligent automation.
+            Experience futuristic AI tools and intelligent assistants.
         </p>
 
         <button class="btn" id="startBtn">
@@ -323,79 +215,11 @@ footer p{
 
 </section>
 
-<!-- FEATURES -->
+<!-- TOOL MENU -->
 
-<section>
+<div id="toolsPopup" class="popup">
 
-    <div class="title">
-        <h2>Features</h2>
-    </div>
-
-    <div class="cards">
-
-        <div class="card">
-            <i class="fas fa-robot"></i>
-            <h3>AI Powered</h3>
-            <p>Advanced AI conversation capabilities.</p>
-        </div>
-
-        <div class="card">
-            <i class="fas fa-language"></i>
-            <h3>Multi Language</h3>
-            <p>Supports users from all around the world.</p>
-        </div>
-
-        <div class="card">
-            <i class="fas fa-shield-alt"></i>
-            <h3>Secure</h3>
-            <p>Private and encrypted AI conversations.</p>
-        </div>
-
-    </div>
-
-</section>
-
-<!-- CHAT PREVIEW -->
-
-<section>
-
-    <div class="title">
-        <h2>Chat Preview</h2>
-    </div>
-
-    <div class="chatbox">
-
-        <div class="message bot">
-            Hello 👋 How can I help you today?
-        </div>
-
-        <div class="message user">
-            Tell me about Nova AI.
-        </div>
-
-        <div class="message bot">
-            Nova AI provides smart AI chatbot tools for everyone.
-        </div>
-
-        <div class="input-box">
-
-            <input type="text" placeholder="Type message...">
-
-            <button>
-                <i class="fas fa-paper-plane"></i>
-            </button>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- AI TOOLS POPUP -->
-
-<div id="toolsPopup" class="tools-popup">
-
-    <div class="tools-box">
+    <div class="popup-box">
 
         <h2>AI Tools</h2>
 
@@ -415,20 +239,32 @@ footer p{
 
 </div>
 
+<!-- TRAVEL AI POPUP -->
+
+<div id="travelPopup" class="iframe-popup">
+
+    <div class="iframe-top">
+
+        <h2>Travel Route Architect</h2>
+
+        <button onclick="closeTravelAI()">
+            Close
+        </button>
+
+    </div>
+
+    <iframe
+    src="https://chatbot.getmindpal.com/travel-route-architect-so0">
+    </iframe>
+
+</div>
+
 <!-- FOOTER -->
 
 <footer>
 
-    <div class="socials">
-
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-
-    </div>
-
     <p>
-        © 2026 Nova AI. All Rights Reserved.
+        © 2026 Nova AI
     </p>
 
 </footer>
@@ -443,17 +279,26 @@ document.getElementById("toolsPopup");
 const startBtn =
 document.getElementById("startBtn");
 
+const travelPopup =
+document.getElementById("travelPopup");
+
+/* OPEN TOOL MENU */
+
 startBtn.addEventListener("click", function(){
 
     popup.style.display = "flex";
 
 });
 
+/* CLOSE TOOL MENU */
+
 function closeTools(){
 
     popup.style.display = "none";
 
 }
+
+/* OPEN DOCTOR BOT */
 
 function openDoctorBot(){
 
@@ -471,18 +316,27 @@ function openDoctorBot(){
 
 }
 
+/* OPEN TRAVEL AI INSIDE WEBSITE */
+
 function openTravelAI(){
 
-    window.open(
-    "https://chatbot.getmindpal.com/travel-route-architect-so0",
-    "_blank"
-    );
+    closeTools();
+
+    travelPopup.style.display = "block";
+
+}
+
+/* CLOSE TRAVEL AI */
+
+function closeTravelAI(){
+
+    travelPopup.style.display = "none";
 
 }
 
 </script>
 
-<!-- CHATBASE AI -->
+<!-- CHATBASE -->
 
 <script>
 (function(){
