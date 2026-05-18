@@ -9,6 +9,24 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
 <style>
+:root {
+    --bg: #0b1020;
+    --card: #111827;
+    --text: white;
+    --accent: #00d4ff;
+    --input-bg: #1f2937;
+    --secondary: #374151;
+}
+
+.light-mode {
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #0f172a;
+    --accent: #0088aa;
+    --input-bg: #f1f5f9;
+    --secondary: #e2e8f0;
+}
+
 *{
     margin:0;
     padding:0;
@@ -16,12 +34,72 @@
     font-family:Arial,sans-serif;
 }
 body{
-    background:#0b1020;
-    color:white;
+    background:var(--bg);
+    color:var(--text);
     overflow-x:hidden;
+    transition: background 0.4s ease;
 }
 
-/* HERO */
+/* Toggle Switch */
+.theme-toggle {
+    position: fixed;
+    top: 25px;
+    right: 30px;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0,0,0,0.3);
+    padding: 8px 14px;
+    border-radius: 50px;
+    backdrop-filter: blur(10px);
+}
+
+.light-mode .theme-toggle {
+    background: rgba(255,255,255,0.7);
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 55px;
+    height: 28px;
+}
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #334155;
+    transition: .4s;
+    border-radius: 50px;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 3px;
+    bottom: 3px;
+    background: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+input:checked + .slider {
+    background: #00d4ff;
+}
+input:checked + .slider:before {
+    transform: translateX(27px);
+}
+
+/* Rest of your styles */
 .hero{
     height:100vh;
     display:flex;
@@ -35,10 +113,10 @@ body{
     margin-bottom:20px;
 }
 .hero span{
-    color:#00d4ff;
+    color:var(--accent);
 }
 .hero p{
-    color:#ccc;
+    color: #94a3b8;
     margin-bottom:30px;
     font-size:18px;
 }
@@ -46,7 +124,7 @@ body{
     padding:16px 35px;
     border:none;
     border-radius:40px;
-    background:#00d4ff;
+    background:var(--accent);
     color:black;
     font-size:18px;
     cursor:pointer;
@@ -56,7 +134,7 @@ body{
     transform:scale(1.05);
 }
 
-/* TOOL MENU - Enhanced */
+/* TOOL MENU */
 .popup{
     position:fixed;
     inset:0;
@@ -69,20 +147,17 @@ body{
 .popup-box{
     width:380px;
     max-height:85vh;
-    background:#111827;
+    background:var(--card);
+    color:var(--text);
     padding:35px 25px;
     border-radius:24px;
     text-align:center;
     overflow-y:auto;
     box-shadow:0 20px 40px rgba(0, 212, 255, 0.15);
-    transition:all 0.4s ease;
-}
-.popup-box:hover{
-    box-shadow:0 25px 50px rgba(0, 212, 255, 0.2);
 }
 .popup-box h2{
     margin-bottom:25px;
-    color:#00d4ff;
+    color:var(--accent);
     font-size:28px;
 }
 .tool-btn{
@@ -101,8 +176,12 @@ body{
     gap:15px;
     text-align:left;
 }
+.light-mode .tool-btn {
+    background: #e2e8f0;
+    color: #0f172a;
+}
 .tool-btn:hover{
-    background:#00d4ff;
+    background:var(--accent);
     color:black;
     transform:scale(1.04) translateY(-2px);
 }
@@ -116,85 +195,57 @@ body{
     margin-top:20px;
     border:none;
     border-radius:12px;
-    background:#374151;
-    color:white;
+    background:var(--secondary);
+    color:var(--text);
     cursor:pointer;
     transition:0.3s;
 }
 .close-btn:hover{
-    background:#4b5563;
+    background:#64748b;
 }
 
-/* FITNESS AI */
+/* Fitness Popup */
 .fitness-popup{
     position:fixed;
     inset:0;
-    background:#0b1020;
+    background:var(--bg);
     display:none;
     z-index:10000;
     overflow-y:auto;
 }
 .topbar{
-    background:#111827;
+    background:var(--card);
     padding:20px;
     display:flex;
     justify-content:space-between;
     align-items:center;
+    color:var(--text);
 }
 .topbar h2{
-    color:#00d4ff;
-}
-.topbar button{
-    padding:10px 20px;
-    border:none;
-    background:red;
-    color:white;
-    border-radius:8px;
-    cursor:pointer;
-}
-.fitness-container{
-    max-width:700px;
-    margin:auto;
-    padding:40px 20px;
-}
-.input-group{
-    margin-bottom:20px;
-}
-.input-group label{
-    display:block;
-    margin-bottom:10px;
+    color:var(--accent);
 }
 .input-group input,
 .input-group select{
-    width:100%;
-    padding:15px;
-    border:none;
-    border-radius:10px;
-    background:#1f2937;
-    color:white;
-}
-.generate-btn{
-    width:100%;
-    padding:16px;
-    border:none;
-    border-radius:12px;
-    background:#00d4ff;
-    color:black;
-    font-size:18px;
-    cursor:pointer;
-    margin-top:20px;
+    background:var(--input-bg);
+    color:var(--text);
 }
 .result{
-    margin-top:40px;
-    background:#111827;
-    padding:30px;
-    border-radius:20px;
-    line-height:1.8;
-    display:none;
+    background:var(--card);
+    color:var(--text);
 }
 </style>
 </head>
 <body>
+
+<!-- Theme Toggle -->
+<div class="theme-toggle">
+    <i class="fas fa-sun" style="color:#facc15;"></i>
+    <label class="switch">
+        <input type="checkbox" id="themeToggle">
+        <span class="slider"></span>
+    </label>
+    <i class="fas fa-moon" style="color:#94a3b8;"></i>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -225,9 +276,7 @@ body{
             <span>Travel Route Architect</span>
         </button>
 
-        <button class="close-btn" onclick="closePopup()">
-            Close
-        </button>
+        <button class="close-btn" onclick="closePopup()">Close</button>
     </div>
 </div>
 
@@ -238,7 +287,6 @@ body{
         <button onclick="closeFitnessAI()">Close</button>
     </div>
     <div class="fitness-container">
-        <!-- Your existing fitness inputs and button remain the same -->
         <div class="input-group">
             <label>Age</label>
             <input type="number" id="age">
@@ -267,7 +315,27 @@ body{
 </div>
 
 <script>
-// MENU
+// Theme Toggle
+const toggle = document.getElementById('themeToggle');
+const body = document.body;
+
+// Load saved preference
+if (localStorage.getItem('theme') === 'light') {
+    body.classList.add('light-mode');
+    toggle.checked = true;
+}
+
+toggle.addEventListener('change', () => {
+    if (toggle.checked) {
+        body.classList.add('light-mode');
+        localStorage.setItem('theme', 'light');
+    } else {
+        body.classList.remove('light-mode');
+        localStorage.setItem('theme', 'dark');
+    }
+});
+
+// Rest of your JavaScript
 const popup = document.getElementById("popup");
 
 document.getElementById("startBtn").addEventListener("click", () => {
@@ -278,13 +346,11 @@ function closePopup(){
     popup.style.display = "none";
 }
 
-// PAL AI
 function openPalAI(){
     closePopup();
     window.open("https://chatbot.getmindpal.com/smart-pal-ik1", "_blank");
 }
 
-// FITNESS AI
 const fitnessPopup = document.getElementById("fitnessPopup");
 
 function openFitnessAI(){
@@ -296,17 +362,15 @@ function closeFitnessAI(){
     fitnessPopup.style.display = "none";
 }
 
-// TRAVEL AI
 function openTravelAI(){
     closePopup();
     window.open("https://chatbot.getmindpal.com/travel-route-architect-so0", "_blank");
 }
 
-// GENERATE FITNESS PLAN (unchanged)
 function generatePlan(){
-    const age = document.getElementById("age").value;
-    const weight = document.getElementById("weight").value;
-    const height = document.getElementById("height").value;
+    const age = document.getElementById("age").value || "N/A";
+    const weight = document.getElementById("weight").value || "N/A";
+    const height = document.getElementById("height").value || "N/A";
     const goal = document.getElementById("goal").value;
     const result = document.getElementById("result");
 
