@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nova AI</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
 <style>
 
 *{
@@ -20,25 +18,6 @@ body{
     background:#0b1020;
     color:white;
     overflow-x:hidden;
-}
-
-/* NAVBAR */
-
-nav{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:20px 10%;
-    background:#111827;
-    position:sticky;
-    top:0;
-    z-index:1000;
-}
-
-.logo{
-    font-size:30px;
-    font-weight:bold;
-    color:#00d4ff;
 }
 
 /* HERO */
@@ -62,11 +41,9 @@ nav{
 }
 
 .hero p{
-    max-width:700px;
-    margin:auto;
-    line-height:1.7;
-    margin-bottom:30px;
     color:#ccc;
+    margin-bottom:30px;
+    font-size:18px;
 }
 
 .btn{
@@ -76,18 +53,19 @@ nav{
     background:#00d4ff;
     color:black;
     font-size:18px;
-    font-weight:bold;
     cursor:pointer;
+    transition:0.3s;
 }
 
-/* POPUPS */
+.btn:hover{
+    transform:scale(1.05);
+}
+
+/* TOOL MENU */
 
 .popup{
     position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
+    inset:0;
     background:rgba(0,0,0,0.85);
     display:none;
     justify-content:center;
@@ -96,8 +74,8 @@ nav{
 }
 
 .popup-box{
+    width:340px;
     background:#111827;
-    width:350px;
     padding:35px;
     border-radius:20px;
     text-align:center;
@@ -117,11 +95,16 @@ nav{
     color:black;
     font-size:18px;
     cursor:pointer;
+    transition:0.3s;
+}
+
+.tool-btn:hover{
+    transform:scale(1.03);
 }
 
 .close-btn{
     width:100%;
-    padding:13px;
+    padding:14px;
     margin-top:15px;
     border:none;
     border-radius:10px;
@@ -130,253 +113,323 @@ nav{
     cursor:pointer;
 }
 
-/* IFRAME POPUP */
+/* FITNESS AI */
 
-.iframe-popup{
+.fitness-popup{
     position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:black;
+    inset:0;
+    background:#0b1020;
     display:none;
     z-index:10000;
+    overflow-y:auto;
 }
 
-.iframe-top{
-    height:60px;
+.topbar{
     background:#111827;
+    padding:20px;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:0 20px;
 }
 
-.iframe-top h2{
-    color:white;
+.topbar h2{
+    color:#00d4ff;
 }
 
-.iframe-top button{
+.topbar button{
+    padding:10px 20px;
+    border:none;
     background:red;
     color:white;
-    border:none;
-    padding:10px 15px;
     border-radius:8px;
     cursor:pointer;
 }
 
-iframe{
-    width:100%;
-    height:calc(100% - 60px);
-    border:none;
+.fitness-container{
+    max-width:700px;
+    margin:auto;
+    padding:40px 20px;
 }
 
-/* FOOTER */
+.input-group{
+    margin-bottom:20px;
+}
 
-footer{
+.input-group label{
+    display:block;
+    margin-bottom:10px;
+}
+
+.input-group input,
+.input-group select{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    background:#1f2937;
+    color:white;
+}
+
+.generate-btn{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:12px;
+    background:#00d4ff;
+    color:black;
+    font-size:18px;
+    cursor:pointer;
+    margin-top:20px;
+}
+
+.result{
+    margin-top:40px;
     background:#111827;
-    text-align:center;
-    padding:40px;
+    padding:30px;
+    border-radius:20px;
+    line-height:1.8;
+    display:none;
 }
 
 </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
-
-<nav>
-
-    <div class="logo">
-        Nova AI
-    </div>
-
-</nav>
-
 <!-- HERO -->
 
 <section class="hero">
 
-    <div>
+<div>
 
-        <h1>
-            Your Smart <span>AI Assistant</span>
-        </h1>
+<h1>
+Nova <span>AI</span>
+</h1>
 
-        <p>
-            Experience futuristic AI tools and intelligent assistants.
-        </p>
+<p>
+Your all-in-one AI platform
+</p>
 
-        <button class="btn" id="startBtn">
-            Start Chatting
-        </button>
+<button class="btn" id="startBtn">
+Start Chatting
+</button>
 
-    </div>
+</div>
 
 </section>
 
 <!-- TOOL MENU -->
 
-<div id="toolsPopup" class="popup">
+<div class="popup" id="popup">
 
-    <div class="popup-box">
+<div class="popup-box">
 
-        <h2>AI Tools</h2>
+<h2>AI Tools</h2>
 
-        <button class="tool-btn" onclick="openDoctorBot()">
-            Smart Pal
-        </button>
+<button class="tool-btn" onclick="openPalAI()">
+Pal AI
+</button>
 
-        <button class="tool-btn" onclick="openTravelAI()">
-            Travel Route Architect
-        </button>
+<button class="tool-btn" onclick="openFitnessAI()">
+Fitness & Weight Loss AI
+</button>
 
-        <button class="close-btn" onclick="closeTools()">
-            Close
-        </button>
-
-    </div>
+<button class="close-btn" onclick="closePopup()">
+Close
+</button>
 
 </div>
 
-<!-- TRAVEL AI POPUP -->
+</div>
 
-<div id="travelPopup" class="iframe-popup">
+<!-- FITNESS AI -->
 
-    <div class="iframe-top">
+<div class="fitness-popup" id="fitnessPopup">
 
-        <h2>Travel Route Architect</h2>
+<div class="topbar">
 
-        <button onclick="closeTravelAI()">
-            Close
-        </button>
+<h2>NovaFit AI</h2>
 
-    </div>
-
-    <iframe
-    src="https://chatbot.getmindpal.com/travel-route-architect-so0">
-    </iframe>
+<button onclick="closeFitnessAI()">
+Close
+</button>
 
 </div>
 
-<!-- FOOTER -->
+<div class="fitness-container">
 
-<footer>
+<div class="input-group">
+<label>Age</label>
+<input type="number" id="age">
+</div>
 
-    <p>
-        © 2026 Nova AI
-    </p>
+<div class="input-group">
+<label>Weight (kg)</label>
+<input type="number" id="weight">
+</div>
 
-</footer>
+<div class="input-group">
+<label>Height (cm)</label>
+<input type="number" id="height">
+</div>
 
-<!-- JAVASCRIPT -->
+<div class="input-group">
+<label>Goal</label>
+
+<select id="goal">
+<option>Lose Weight</option>
+<option>Build Muscle</option>
+<option>Maintain Weight</option>
+</select>
+
+</div>
+
+<button class="generate-btn" onclick="generatePlan()">
+Generate AI Plan
+</button>
+
+<div class="result" id="result"></div>
+
+</div>
+
+</div>
 
 <script>
+
+/* MENU */
 
 const popup =
-document.getElementById("toolsPopup");
+document.getElementById("popup");
 
-const startBtn =
-document.getElementById("startBtn");
+document.getElementById("startBtn")
+.addEventListener("click", ()=>{
 
-const travelPopup =
-document.getElementById("travelPopup");
-
-/* OPEN TOOL MENU */
-
-startBtn.addEventListener("click", function(){
-
-    popup.style.display = "flex";
+popup.style.display="flex";
 
 });
 
-/* CLOSE TOOL MENU */
+function closePopup(){
 
-function closeTools(){
-
-    popup.style.display = "none";
+popup.style.display="none";
 
 }
 
-/* OPEN DOCTOR BOT */
+/* PAL AI */
 
-function openDoctorBot(){
+function openPalAI(){
 
-    closeTools();
+closePopup();
 
-    if(window.chatbase){
-
-        window.chatbase("open");
-
-    } else {
-
-        alert("Doctor AI is loading...");
-
-    }
+window.open(
+"https://chatbot.getmindpal.com/smart-pal-ik1",
+"_blank"
+);
 
 }
 
-/* OPEN TRAVEL AI INSIDE WEBSITE */
+/* FITNESS AI */
 
-function openTravelAI(){
+const fitnessPopup =
+document.getElementById("fitnessPopup");
 
-    closeTools();
+function openFitnessAI(){
 
-    travelPopup.style.display = "block";
+closePopup();
 
-}
-
-/* CLOSE TRAVEL AI */
-
-function closeTravelAI(){
-
-    travelPopup.style.display = "none";
+fitnessPopup.style.display="block";
 
 }
 
-</script>
+function closeFitnessAI(){
 
-<!-- CHATBASE -->
+fitnessPopup.style.display="none";
 
-<script>
-(function(){
-
-if(!window.chatbase || window.chatbase("getState") !== "initialized"){
-
-window.chatbase=(...arguments)=>{
-if(!window.chatbase.q){
-window.chatbase.q=[]
-}
-window.chatbase.q.push(arguments)
-};
-
-window.chatbase=new Proxy(window.chatbase,{
-get(target,prop){
-if(prop==="q"){
-return target.q
-}
-return(...args)=>target(prop,...args)
-}
-});
 }
 
-const onLoad=function(){
+/* GENERATE FITNESS PLAN */
 
-const script=document.createElement("script");
+function generatePlan(){
 
-script.src="https://www.chatbase.co/embed.min.js";
+const age =
+document.getElementById("age").value;
 
-script.id="kxemaNl6VFrXMQkBX8iwb";
+const weight =
+document.getElementById("weight").value;
 
-script.domain="www.chatbase.co";
+const height =
+document.getElementById("height").value;
 
-document.body.appendChild(script);
+const goal =
+document.getElementById("goal").value;
 
-};
+const result =
+document.getElementById("result");
 
-document.addEventListener("DOMContentLoaded", onLoad);
+let calories = 2000;
 
-})();
+if(goal === "Lose Weight"){
+
+calories = 1800;
+
+}else if(goal === "Build Muscle"){
+
+calories = 2800;
+
+}
+
+let workout = "";
+
+if(goal === "Lose Weight"){
+
+workout =
+"• 30 mins cardio daily<br>" +
+"• Full body workouts 4x/week<br>" +
+"• High protein diet<br>" +
+"• Drink 3L water daily";
+
+}else if(goal === "Build Muscle"){
+
+workout =
+"• Push Pull Legs split<br>" +
+"• Heavy strength training<br>" +
+"• Protein-rich meals<br>" +
+"• Sleep 8 hours daily";
+
+}else{
+
+workout =
+"• Moderate workouts<br>" +
+"• Balanced nutrition<br>" +
+"• Light cardio<br>" +
+"• Maintain calorie balance";
+
+}
+
+result.style.display="block";
+
+result.innerHTML =
+
+"<h2>Your AI Fitness Plan</h2><br>" +
+
+"<b>Age:</b> " + age + "<br>" +
+
+"<b>Weight:</b> " + weight + " kg<br>" +
+
+"<b>Height:</b> " + height + " cm<br>" +
+
+"<b>Goal:</b> " + goal + "<br><br>" +
+
+"<b>Recommended Calories:</b> " +
+calories + " kcal/day<br><br>" +
+
+"<b>Workout Plan:</b><br>" +
+workout + "<br><br>" +
+
+"<b>AI Advice:</b><br>" +
+"Stay consistent, track progress weekly, " +
+"eat nutritious foods, and prioritize sleep.";
+
+}
+
 </script>
 
 </body>
