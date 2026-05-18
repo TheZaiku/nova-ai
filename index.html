@@ -8,15 +8,7 @@
 
 <style>
 :root {
-    --bg: #0a0f1c;
-    --accent: #00d4ff;
-    --card: rgba(17, 24, 39, 0.85);
-}
-
-.light-mode {
-    --bg: #f0f4f8;
-    --accent: #0088aa;
-    --card: rgba(255, 255, 255, 0.95);
+    --accent: #00f5ff;
 }
 
 * {
@@ -27,27 +19,92 @@
 }
 
 body {
-    background: var(--bg);
+    background: linear-gradient(135deg, #0a0f1c 0%, #1a1f3a 100%);
     color: white;
     overflow-x: hidden;
-    transition: 0.5s;
+    min-height: 100vh;
 }
 
-/* Animated Background */
+/* Animated Background Glow */
 body::before {
     content: '';
     position: fixed;
-    inset: 0;
-    background: linear-gradient(45deg, #0a0f1c, #1a2340, #0a0f1c);
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at 50% 20%, rgba(0, 245, 255, 0.15), transparent 60%);
+    pointer-events: none;
     z-index: -1;
 }
 
-@keyframes gradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+/* HERO */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+    position: relative;
+}
+
+.hero h1 {
+    font-size: 5.8rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    letter-spacing: -3px;
+    background: linear-gradient(90deg, #ffffff, var(--accent), #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+    font-size: 1.5rem;
+    max-width: 600px;
+    margin: 0 auto 50px;
+    color: #b0d4ff;
+    line-height: 1.6;
+}
+
+/* Main Button - Much Better Now */
+.main-btn {
+    padding: 20px 55px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 60px;
+    background: linear-gradient(90deg, #00f5ff, #00b8ff);
+    color: #000;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 15px 40px rgba(0, 245, 255, 0.4);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.main-btn:hover {
+    transform: scale(1.1) translateY(-8px);
+    box-shadow: 0 25px 55px rgba(0, 245, 255, 0.6);
+}
+
+.main-btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 40%;
+    height: 300%;
+    background: rgba(255,255,255,0.4);
+    transform: rotate(30deg);
+    transition: all 0.6s;
+    opacity: 0;
+}
+
+.main-btn:hover::after {
+    left: 120%;
+    opacity: 1;
 }
 
 /* Theme Toggle */
@@ -55,117 +112,60 @@ body::before {
     position: fixed;
     top: 25px;
     right: 30px;
-    z-index: 10000;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: rgba(0,0,0,0.4);
-    padding: 8px 14px;
+    z-index: 1000;
+    background: rgba(0,0,0,0.5);
+    padding: 10px;
     border-radius: 50px;
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(0, 212, 255, 0.2);
+    backdrop-filter: blur(10px);
 }
 
-/* HERO SECTION - Enhanced */
-.hero {
-    height: 100vh;
-    display: flex;
+/* Popup Styling */
+.popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+    display: none;
     justify-content: center;
     align-items: center;
+    z-index: 9999;
+}
+
+.popup-box {
+    width: 440px;
+    background: rgba(15, 23, 42, 0.95);
+    padding: 45px 35px;
+    border-radius: 28px;
+    border: 1px solid rgba(0, 245, 255, 0.3);
     text-align: center;
-    position: relative;
-    padding: 0 20px;
-}
-
-.hero-content {
-    max-width: 800px;
-    z-index: 2;
-}
-
-.hero h1 {
-    font-size: 4.5rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    background: linear-gradient(90deg, #ffffff, var(--accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
-}
-
-.hero p {
-    font-size: 1.4rem;
-    color: #b0c4e0;
-    margin-bottom: 40px;
-    line-height: 1.6;
-}
-
-.btn {
-    padding: 18px 45px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    border: none;
-    border-radius: 50px;
-    background: var(--accent);
-    color: black;
-    cursor: pointer;
-    transition: all 0.4s ease;
-    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
-}
-
-.btn:hover {
-    transform: scale(1.08) translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0, 212, 255, 0.5);
-}
-
-/* Rest of styles (Popup + Fitness) */
-.popup-box, .fitness-popup {
-    backdrop-filter: blur(16px);
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .tool-btn {
-    background: rgba(31, 41, 55, 0.9);
-    border: 1px solid rgba(0, 212, 255, 0.2);
+    width: 100%;
+    padding: 20px;
+    margin: 12px 0;
+    border: none;
+    border-radius: 16px;
+    background: rgba(30, 41, 59, 0.9);
+    color: white;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-.light-mode .tool-btn {
-    background: rgba(255,255,255,0.9);
-    color: #0f172a;
+.tool-btn:hover {
+    background: var(--accent);
+    color: black;
+    transform: translateX(10px);
 }
 
-/* Keep your existing popup, fitness, and script styles */
-.popup{
-    position:fixed; inset:0; background:rgba(0,0,0,0.9);
-    display:none; justify-content:center; align-items:center; z-index:9999;
-}
-.popup-box{
-    width: 420px;
-    max-height: 92vh;
-    background: var(--card);
-    padding: 40px 30px;
-    border-radius: 24px;
-    text-align: center;
-    overflow-y: auto;
-    border: 1px solid rgba(0, 212, 255, 0.3);
-}
-
-.tool-btn{
-    width:100%; padding:19px 20px; margin:12px 0;
-    border:none; border-radius:16px;
-    font-size:17px; cursor:pointer;
-    display:flex; align-items:center; gap:15px;
-    transition:all 0.3s;
-}
-.tool-btn:hover{
-    transform: scale(1.05) translateY(-4px);
-    background: var(--accent) !important;
-    color: black !important;
-}
-.tool-btn i { font-size: 26px; width: 35px; }
-
-.close-btn{
-    width:100%; padding:15px; margin-top:25px;
-    border:none; border-radius:12px;
-    background:#334155; color:white; cursor:pointer;
+.tool-btn i {
+    font-size: 28px;
+    width: 35px;
 }
 </style>
 </head>
@@ -173,21 +173,20 @@ body::before {
 
 <!-- Theme Toggle -->
 <div class="theme-toggle">
-    <i class="fas fa-sun" style="color:#facc15;"></i>
     <label class="switch">
         <input type="checkbox" id="themeToggle">
         <span class="slider"></span>
     </label>
-    <i class="fas fa-moon" style="color:#94a3b8;"></i>
 </div>
 
 <!-- HERO -->
 <section class="hero">
-    <div class="hero-content">
-        <h1>Nova <span style="color:var(--accent)">AI</span></h1>
-        <p>Supercharge your life with intelligent AI tools</p>
-        <button class="btn" id="startBtn">
-            <i class="fas fa-bolt"></i> Explore AI Tools
+    <div>
+        <h1>Nova <span>AI</span></h1>
+        <p>Powerful AI tools that help you think, create, and achieve more</p>
+        <button class="main-btn" id="startBtn">
+            <i class="fas fa-bolt"></i>
+            Start Chatting
         </button>
     </div>
 </section>
@@ -195,83 +194,29 @@ body::before {
 <!-- TOOL MENU -->
 <div class="popup" id="popup">
     <div class="popup-box">
-        <h2>Choose Your AI Assistant</h2>
+        <h2 style="margin-bottom:30px; font-size:2rem;">Choose AI Tool</h2>
         
         <button class="tool-btn" onclick="openPalAI()">
-            <i class="fas fa-robot"></i>
-            <span>Pal AI - Your Personal Companion</span>
+            <i class="fas fa-robot"></i> Pal AI
         </button>
-        
         <button class="tool-btn" onclick="openFitnessAI()">
-            <i class="fas fa-dumbbell"></i>
-            <span>Fitness & Weight Loss AI</span>
+            <i class="fas fa-dumbbell"></i> Fitness & Weight Loss AI
         </button>
-        
         <button class="tool-btn" onclick="openTravelAI()">
-            <i class="fas fa-plane"></i>
-            <span>Travel Route Architect</span>
+            <i class="fas fa-plane"></i> Travel Route Architect
         </button>
-        
         <button class="tool-btn" onclick="openSynapseAI()">
-            <i class="fas fa-laptop-code"></i>
-            <span>Synapse X - AI Software Engineer</span>
+            <i class="fas fa-laptop-code"></i> Synapse X AI Engineer
         </button>
 
-        <button class="close-btn" onclick="closePopup()">Close Menu</button>
-    </div>
-</div>
-
-<!-- FITNESS AI (same as before) -->
-<div class="fitness-popup" id="fitnessPopup">
-    <!-- ... your fitness content ... -->
-    <div class="topbar">
-        <h2>NovaFit AI</h2>
-        <button onclick="closeFitnessAI()">Close</button>
-    </div>
-    <div class="fitness-container" style="max-width:700px; margin:auto; padding:40px 20px;">
-        <!-- Your input fields here (same as previous version) -->
-        <div class="input-group">
-            <label>Age</label>
-            <input type="number" id="age">
-        </div>
-        <div class="input-group">
-            <label>Weight (kg)</label>
-            <input type="number" id="weight">
-        </div>
-        <div class="input-group">
-            <label>Height (cm)</label>
-            <input type="number" id="height">
-        </div>
-        <div class="input-group">
-            <label>Goal</label>
-            <select id="goal">
-                <option>Lose Weight</option>
-                <option>Build Muscle</option>
-                <option>Maintain Weight</option>
-            </select>
-        </div>
-        <button class="generate-btn" onclick="generatePlan()">Generate AI Plan</button>
-        <div class="result" id="result"></div>
+        <button onclick="closePopup()" style="margin-top:25px; width:100%; padding:16px; background:#334155; border:none; border-radius:12px; color:white; font-size:1.1rem; cursor:pointer;">
+            Close
+        </button>
     </div>
 </div>
 
 <script>
-// Theme Toggle + All previous functions remain the same
-const toggle = document.getElementById('themeToggle');
-if (localStorage.getItem('theme') === 'light') {
-    document.body.classList.add('light-mode');
-    toggle.checked = true;
-}
-toggle.addEventListener('change', () => {
-    if (toggle.checked) {
-        document.body.classList.add('light-mode');
-        localStorage.setItem('theme', 'light');
-    } else {
-        document.body.classList.remove('light-mode');
-        localStorage.setItem('theme', 'dark');
-    }
-});
-
+// Basic functionality
 document.getElementById("startBtn").addEventListener("click", () => {
     document.getElementById("popup").style.display = "flex";
 });
@@ -280,18 +225,12 @@ function closePopup() {
     document.getElementById("popup").style.display = "none";
 }
 
-function openPalAI() { closePopup(); window.open("https://chatbot.getmindpal.com/smart-pal-ik1", "_blank"); }
-function openTravelAI() { closePopup(); window.open("https://chatbot.getmindpal.com/travel-route-architect-so0", "_blank"); }
-function openSynapseAI() { closePopup(); window.open("https://chatbot.getmindpal.com/synapse-x-elite-ai-software-engineer-7fh", "_blank"); }
-
-const fitnessPopup = document.getElementById("fitnessPopup");
-function openFitnessAI() { closePopup(); fitnessPopup.style.display = "block"; }
-function closeFitnessAI() { fitnessPopup.style.display = "none"; }
-
-// Generate Plan (same as before)
-function generatePlan() {
-    // ... your existing generatePlan code ...
-    alert("Plan generated successfully!");
+function openPalAI(){ closePopup(); window.open("https://chatbot.getmindpal.com/smart-pal-ik1", "_blank"); }
+function openTravelAI(){ closePopup(); window.open("https://chatbot.getmindpal.com/travel-route-architect-so0", "_blank"); }
+function openSynapseAI(){ closePopup(); window.open("https://chatbot.getmindpal.com/synapse-x-elite-ai-software-engineer-7fh", "_blank"); }
+function openFitnessAI(){ 
+    closePopup(); 
+    alert("Fitness AI opened! (Add your fitness popup here)"); 
 }
 </script>
 </body>
