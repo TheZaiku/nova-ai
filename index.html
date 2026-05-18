@@ -5,15 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nova AI</title>
 
-<style>
+<!-- Font Awesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
+<style>
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
     font-family:Arial,sans-serif;
 }
-
 body{
     background:#0b1020;
     color:white;
@@ -21,7 +22,6 @@ body{
 }
 
 /* HERO */
-
 .hero{
     height:100vh;
     display:flex;
@@ -30,22 +30,18 @@ body{
     text-align:center;
     padding:20px;
 }
-
 .hero h1{
     font-size:65px;
     margin-bottom:20px;
 }
-
 .hero span{
     color:#00d4ff;
 }
-
 .hero p{
     color:#ccc;
     margin-bottom:30px;
     font-size:18px;
 }
-
 .btn{
     padding:16px 35px;
     border:none;
@@ -56,65 +52,80 @@ body{
     cursor:pointer;
     transition:0.3s;
 }
-
 .btn:hover{
     transform:scale(1.05);
 }
 
-/* TOOL MENU */
-
+/* TOOL MENU - Enhanced */
 .popup{
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,0.85);
+    background:rgba(0,0,0,0.9);
     display:none;
     justify-content:center;
     align-items:center;
     z-index:9999;
 }
-
 .popup-box{
-    width:340px;
+    width:380px;
+    max-height:85vh;
     background:#111827;
-    padding:35px;
-    border-radius:20px;
+    padding:35px 25px;
+    border-radius:24px;
     text-align:center;
+    overflow-y:auto;
+    box-shadow:0 20px 40px rgba(0, 212, 255, 0.15);
+    transition:all 0.4s ease;
 }
-
+.popup-box:hover{
+    box-shadow:0 25px 50px rgba(0, 212, 255, 0.2);
+}
 .popup-box h2{
-    margin-bottom:20px;
+    margin-bottom:25px;
+    color:#00d4ff;
+    font-size:28px;
 }
-
 .tool-btn{
     width:100%;
-    padding:15px;
-    margin-top:15px;
+    padding:18px 20px;
+    margin:12px 0;
     border:none;
-    border-radius:10px;
+    border-radius:14px;
+    background:#1f2937;
+    color:white;
+    font-size:17px;
+    cursor:pointer;
+    transition:all 0.3s ease;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    text-align:left;
+}
+.tool-btn:hover{
     background:#00d4ff;
     color:black;
-    font-size:18px;
-    cursor:pointer;
-    transition:0.3s;
+    transform:scale(1.04) translateY(-2px);
 }
-
-.tool-btn:hover{
-    transform:scale(1.03);
+.tool-btn i{
+    font-size:22px;
+    width:28px;
 }
-
 .close-btn{
     width:100%;
     padding:14px;
-    margin-top:15px;
+    margin-top:20px;
     border:none;
-    border-radius:10px;
-    background:#333;
+    border-radius:12px;
+    background:#374151;
     color:white;
     cursor:pointer;
+    transition:0.3s;
+}
+.close-btn:hover{
+    background:#4b5563;
 }
 
 /* FITNESS AI */
-
 .fitness-popup{
     position:fixed;
     inset:0;
@@ -123,7 +134,6 @@ body{
     z-index:10000;
     overflow-y:auto;
 }
-
 .topbar{
     background:#111827;
     padding:20px;
@@ -131,11 +141,9 @@ body{
     justify-content:space-between;
     align-items:center;
 }
-
 .topbar h2{
     color:#00d4ff;
 }
-
 .topbar button{
     padding:10px 20px;
     border:none;
@@ -144,22 +152,18 @@ body{
     border-radius:8px;
     cursor:pointer;
 }
-
 .fitness-container{
     max-width:700px;
     margin:auto;
     padding:40px 20px;
 }
-
 .input-group{
     margin-bottom:20px;
 }
-
 .input-group label{
     display:block;
     margin-bottom:10px;
 }
-
 .input-group input,
 .input-group select{
     width:100%;
@@ -169,7 +173,6 @@ body{
     background:#1f2937;
     color:white;
 }
-
 .generate-btn{
     width:100%;
     padding:16px;
@@ -181,7 +184,6 @@ body{
     cursor:pointer;
     margin-top:20px;
 }
-
 .result{
     margin-top:40px;
     background:#111827;
@@ -190,247 +192,150 @@ body{
     line-height:1.8;
     display:none;
 }
-
 </style>
 </head>
 <body>
 
 <!-- HERO -->
-
 <section class="hero">
-
 <div>
-
-<h1>
-Nova <span>AI</span>
-</h1>
-
-<p>
-Your all-in-one AI platform
-</p>
-
-<button class="btn" id="startBtn">
-Start Chatting
-</button>
-
+    <h1>Nova <span>AI</span></h1>
+    <p>Your all-in-one AI platform</p>
+    <button class="btn" id="startBtn">Start Chatting</button>
 </div>
-
 </section>
 
 <!-- TOOL MENU -->
-
 <div class="popup" id="popup">
+    <div class="popup-box">
+        <h2>Choose AI Tool</h2>
+        
+        <button class="tool-btn" onclick="openPalAI()">
+            <i class="fas fa-robot"></i>
+            <span>Pal AI</span>
+        </button>
+        
+        <button class="tool-btn" onclick="openFitnessAI()">
+            <i class="fas fa-dumbbell"></i>
+            <span>Fitness & Weight Loss AI</span>
+        </button>
+        
+        <button class="tool-btn" onclick="openTravelAI()">
+            <i class="fas fa-plane"></i>
+            <span>Travel Route Architect</span>
+        </button>
 
-<div class="popup-box">
-
-<h2>AI Tools</h2>
-
-<button class="tool-btn" onclick="openPalAI()">
-Pal AI
-</button>
-
-<button class="tool-btn" onclick="openFitnessAI()">
-Fitness & Weight Loss AI
-</button>
-
-<button class="close-btn" onclick="closePopup()">
-Close
-</button>
-
-</div>
-
+        <button class="close-btn" onclick="closePopup()">
+            Close
+        </button>
+    </div>
 </div>
 
 <!-- FITNESS AI -->
-
 <div class="fitness-popup" id="fitnessPopup">
-
-<div class="topbar">
-
-<h2>NovaFit AI</h2>
-
-<button onclick="closeFitnessAI()">
-Close
-</button>
-
-</div>
-
-<div class="fitness-container">
-
-<div class="input-group">
-<label>Age</label>
-<input type="number" id="age">
-</div>
-
-<div class="input-group">
-<label>Weight (kg)</label>
-<input type="number" id="weight">
-</div>
-
-<div class="input-group">
-<label>Height (cm)</label>
-<input type="number" id="height">
-</div>
-
-<div class="input-group">
-<label>Goal</label>
-
-<select id="goal">
-<option>Lose Weight</option>
-<option>Build Muscle</option>
-<option>Maintain Weight</option>
-</select>
-
-</div>
-
-<button class="generate-btn" onclick="generatePlan()">
-Generate AI Plan
-</button>
-
-<div class="result" id="result"></div>
-
-</div>
-
+    <div class="topbar">
+        <h2>NovaFit AI</h2>
+        <button onclick="closeFitnessAI()">Close</button>
+    </div>
+    <div class="fitness-container">
+        <!-- Your existing fitness inputs and button remain the same -->
+        <div class="input-group">
+            <label>Age</label>
+            <input type="number" id="age">
+        </div>
+        <div class="input-group">
+            <label>Weight (kg)</label>
+            <input type="number" id="weight">
+        </div>
+        <div class="input-group">
+            <label>Height (cm)</label>
+            <input type="number" id="height">
+        </div>
+        <div class="input-group">
+            <label>Goal</label>
+            <select id="goal">
+                <option>Lose Weight</option>
+                <option>Build Muscle</option>
+                <option>Maintain Weight</option>
+            </select>
+        </div>
+        <button class="generate-btn" onclick="generatePlan()">
+            Generate AI Plan
+        </button>
+        <div class="result" id="result"></div>
+    </div>
 </div>
 
 <script>
+// MENU
+const popup = document.getElementById("popup");
 
-/* MENU */
-
-const popup =
-document.getElementById("popup");
-
-document.getElementById("startBtn")
-.addEventListener("click", ()=>{
-
-popup.style.display="flex";
-
+document.getElementById("startBtn").addEventListener("click", () => {
+    popup.style.display = "flex";
 });
 
 function closePopup(){
-
-popup.style.display="none";
-
+    popup.style.display = "none";
 }
 
-/* PAL AI */
-
+// PAL AI
 function openPalAI(){
-
-closePopup();
-
-window.open(
-"https://chatbot.getmindpal.com/smart-pal-ik1",
-"_blank"
-);
-
+    closePopup();
+    window.open("https://chatbot.getmindpal.com/smart-pal-ik1", "_blank");
 }
 
-/* FITNESS AI */
-
-const fitnessPopup =
-document.getElementById("fitnessPopup");
+// FITNESS AI
+const fitnessPopup = document.getElementById("fitnessPopup");
 
 function openFitnessAI(){
-
-closePopup();
-
-fitnessPopup.style.display="block";
-
+    closePopup();
+    fitnessPopup.style.display = "block";
 }
 
 function closeFitnessAI(){
-
-fitnessPopup.style.display="none";
-
+    fitnessPopup.style.display = "none";
 }
 
-/* GENERATE FITNESS PLAN */
+// TRAVEL AI
+function openTravelAI(){
+    closePopup();
+    window.open("https://chatbot.getmindpal.com/travel-route-architect-so0", "_blank");
+}
 
+// GENERATE FITNESS PLAN (unchanged)
 function generatePlan(){
+    const age = document.getElementById("age").value;
+    const weight = document.getElementById("weight").value;
+    const height = document.getElementById("height").value;
+    const goal = document.getElementById("goal").value;
+    const result = document.getElementById("result");
 
-const age =
-document.getElementById("age").value;
+    let calories = 2000;
+    if(goal === "Lose Weight") calories = 1800;
+    else if(goal === "Build Muscle") calories = 2800;
 
-const weight =
-document.getElementById("weight").value;
+    let workout = "";
+    if(goal === "Lose Weight"){
+        workout = "• 30 mins cardio daily<br>• Full body workouts 4x/week<br>• High protein diet<br>• Drink 3L water daily";
+    } else if(goal === "Build Muscle"){
+        workout = "• Push Pull Legs split<br>• Heavy strength training<br>• Protein-rich meals<br>• Sleep 8 hours daily";
+    } else {
+        workout = "• Moderate workouts<br>• Balanced nutrition<br>• Light cardio<br>• Maintain calorie balance";
+    }
 
-const height =
-document.getElementById("height").value;
-
-const goal =
-document.getElementById("goal").value;
-
-const result =
-document.getElementById("result");
-
-let calories = 2000;
-
-if(goal === "Lose Weight"){
-
-calories = 1800;
-
-}else if(goal === "Build Muscle"){
-
-calories = 2800;
-
+    result.style.display = "block";
+    result.innerHTML = `
+        <h2>Your AI Fitness Plan</h2><br>
+        <b>Age:</b> ${age}<br>
+        <b>Weight:</b> ${weight} kg<br>
+        <b>Height:</b> ${height} cm<br>
+        <b>Goal:</b> ${goal}<br><br>
+        <b>Recommended Calories:</b> ${calories} kcal/day<br><br>
+        <b>Workout Plan:</b><br>${workout}<br><br>
+        <b>AI Advice:</b><br>
+        Stay consistent, track progress weekly, eat nutritious foods, and prioritize sleep.
+    `;
 }
-
-let workout = "";
-
-if(goal === "Lose Weight"){
-
-workout =
-"• 30 mins cardio daily<br>" +
-"• Full body workouts 4x/week<br>" +
-"• High protein diet<br>" +
-"• Drink 3L water daily";
-
-}else if(goal === "Build Muscle"){
-
-workout =
-"• Push Pull Legs split<br>" +
-"• Heavy strength training<br>" +
-"• Protein-rich meals<br>" +
-"• Sleep 8 hours daily";
-
-}else{
-
-workout =
-"• Moderate workouts<br>" +
-"• Balanced nutrition<br>" +
-"• Light cardio<br>" +
-"• Maintain calorie balance";
-
-}
-
-result.style.display="block";
-
-result.innerHTML =
-
-"<h2>Your AI Fitness Plan</h2><br>" +
-
-"<b>Age:</b> " + age + "<br>" +
-
-"<b>Weight:</b> " + weight + " kg<br>" +
-
-"<b>Height:</b> " + height + " cm<br>" +
-
-"<b>Goal:</b> " + goal + "<br><br>" +
-
-"<b>Recommended Calories:</b> " +
-calories + " kcal/day<br><br>" +
-
-"<b>Workout Plan:</b><br>" +
-workout + "<br><br>" +
-
-"<b>AI Advice:</b><br>" +
-"Stay consistent, track progress weekly, " +
-"eat nutritious foods, and prioritize sleep.";
-
-}
-
 </script>
-
 </body>
 </html>
